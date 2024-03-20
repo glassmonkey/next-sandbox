@@ -1,6 +1,3 @@
-import Counter from "@/app/Form";
-import Form from "@/app/Form";
-
 export default async function ServerComponent() {
    const res = await fetch("http://127.0.0.1:3000/api/data", {
        method: "POST",
@@ -12,13 +9,16 @@ export default async function ServerComponent() {
        return response
    }).catch((e: Error) =>  {
        console.error({
-           "message": "view error",
+           "message": "action error",
            "error": e,
        })
-       return null
+       return e
    })
-    const text = await res?.text()
+    if (res instanceof Error) {
+        return <div>API Error</div>
+    }
+    const text = await res.text()
     return <div>
-        <div>ApiResponse: {text}</div>
+        <div>Api Response: {text}</div>
     </div>
 }
