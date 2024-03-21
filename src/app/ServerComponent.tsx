@@ -1,7 +1,8 @@
 export default async function ServerComponent() {
    const res = await fetch("http://127.0.0.1:3000/api/data", {
        method: "POST",
-       cache: "no-cache"
+       cache: "no-cache",
+       body: JSON.stringify({"from": "server"})
    }).then((response) => {
        if (!response.ok) {
            throw new Error(response.statusText);
@@ -9,7 +10,7 @@ export default async function ServerComponent() {
        return response
    }).catch((e: Error) =>  {
        console.error({
-           "message": "action error",
+           "message": "view error",
            "error": e,
        })
        return e
@@ -19,6 +20,6 @@ export default async function ServerComponent() {
     }
     const text = await res.text()
     return <div>
-        <div>Api Response: {text}</div>
+        <div>Server Api Response: {text}</div>
     </div>
 }

@@ -1,6 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    output: "standalone"
+    reactStrictMode: true,
+    //concurrentFeatures: true,
+    output: "standalone",
+    experimental: {
+        ppr: false,
+    },
 };
 
 export default nextConfig;
