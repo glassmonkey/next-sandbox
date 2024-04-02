@@ -21,16 +21,13 @@ function _ClientComponent() {
         return e
     }),{
         suspense: true,
-        fallback: {
-            "/api/data": '',
-        }
     })
 
     if (error || data instanceof Error) {
         return <div>Api Error</div>
     }
     if (!data) {
-        return "loading..."
+        return "...loading..."
     }
     return <div>
         <div>Client Api Response: {data}</div>
@@ -38,5 +35,10 @@ function _ClientComponent() {
 }
 
 export default function ClientComponent() {
-    return <_ClientComponent />
+    const DynamicComponent = dynamic(async () => _ClientComponent, {
+        ssr: false,
+        suspense: true,
+        loading: () => <>loading...</>,
+    })
+    return <DynamicComponent />
 }
