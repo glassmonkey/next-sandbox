@@ -1,5 +1,7 @@
 'use server';
 
+import {HOST} from "@/config";
+
 export type Value = {
     data: any
     error?: string
@@ -7,7 +9,7 @@ export type Value = {
 
 export async function requestValue(v:  Value, formData: FormData): Promise<Value> {
     const value = formData.get('value');
-    const res = await fetch("http://127.0.0.1:3000/api/action", {
+    const res = await fetch(`${HOST}/api/action`, {
         method: "POST",
         body: JSON.stringify({
             value

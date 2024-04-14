@@ -1,5 +1,7 @@
+import {HOST} from "@/config";
+
 export default async function ServerComponent() {
-   const res = await fetch("http://127.0.0.1:3000/api/data", {
+   const res = await fetch(`${HOST}/api/data`, {
        method: "POST",
        cache: "no-cache",
        body: JSON.stringify({"from": "server"})

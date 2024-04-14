@@ -2,10 +2,11 @@
 import useSWR from "swr";
 import dynamic from "next/dynamic";
 import {Suspense} from "react";
+import {HOST} from "@/config";
 
 function _ClientComponent() {
     console.log("client component")
-    const { data, error } = useSWR('/api/data', (url) => fetch(`http://127.0.0.1:3000${url}`, {
+    const { data, error } = useSWR('/api/data', (url) => fetch(`${HOST}${url}`, {
         method: "POST",
         cache: "no-cache",
         body: JSON.stringify({"from": "client"}),
