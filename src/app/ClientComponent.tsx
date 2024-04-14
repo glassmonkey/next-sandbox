@@ -24,8 +24,11 @@ function _ClientComponent() {
         suspense: true,
     })
 
-    if (error || data instanceof Error) {
-        return <div>Api Error</div>
+    if (error) {
+        return <div>Api Error: {error}</div>
+    }
+    if (data instanceof Error) {
+        return <div>Api Error: {data.message}</div>
     }
     if (!data) {
         return "...loading..."

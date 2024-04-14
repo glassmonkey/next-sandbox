@@ -1,6 +1,11 @@
 'use server';
 
-export async function requestValue(_:  {value: any;} | null, formData: FormData) {
+export type Value = {
+    data: any
+    error?: string
+}
+
+export async function requestValue(v:  Value, formData: FormData): Promise<Value> {
     const value = formData.get('value');
     const res = await fetch("http://127.0.0.1:3000/api/action", {
         method: "POST",
@@ -18,13 +23,19 @@ export async function requestValue(_:  {value: any;} | null, formData: FormData)
             "message": "action error",
             "error": e,
         })
-        return null
+        return e
     })
-    if (!res) {
-        return null
+    if (res instanceof Error) {
+        const result = {
+            error: res.message,
+            data: null
+        }
+        console.log(result)
+        return result
     }
     const result = {
-        value: await res.json()
+        data: await res.json(),
+        error: undefined,
     }
     console.log(result)
 

@@ -10,13 +10,13 @@ export default async function ServerComponent() {
        return response
    }).catch((e: Error) =>  {
        console.error({
-           "message": "view error",
+           "message": "server side view error",
            "error": e,
        })
        return e
    })
     if (res instanceof Error) {
-        return <div>API Error</div>
+        return <div>API Error: {res.message}</div>
     }
     const text = await res.text()
     return <div>
