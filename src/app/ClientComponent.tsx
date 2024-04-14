@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import {Suspense} from "react";
 
 function _ClientComponent() {
+    console.log("client component")
     const { data, error } = useSWR('/api/data', (url) => fetch(`http://127.0.0.1:3000${url}`, {
         method: "POST",
         cache: "no-cache",
