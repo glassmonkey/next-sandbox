@@ -27,7 +27,7 @@ function _ClientComponent() {
         suspense: true,
     })
 
-    const v = useUniversalValue<Message>("message")
+    const {value: v} = useUniversalValue<Message>("message")
 
     if (error) {
         return <div>Api Error: {error}</div>

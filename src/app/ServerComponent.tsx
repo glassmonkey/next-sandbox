@@ -19,7 +19,7 @@ export default async function ServerComponent() {
        })
        return e
    })
-    const v = getUniversalValue<Message>("message")
+    const {value: v} = getUniversalValue<Message>("message")
     if (res instanceof Error) {
         return <div>API Error: {res.message}</div>
     }
