@@ -1,12 +1,9 @@
 "use client"
 import { useFormState } from 'react-dom';
 import {requestValue, Value} from './action'
-import {Simulate} from "react-dom/test-utils";
-import error = Simulate.error;
 
 export default function Form() {
     const [state, dispatch, isPending] = useFormState<Value, FormData>(requestValue, { data: null });
-
     return <form action={dispatch}>
         <input type="text" name="value" />
         <button type="submit">Request</button>

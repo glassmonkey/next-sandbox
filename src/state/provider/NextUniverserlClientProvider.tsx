@@ -6,10 +6,8 @@ import {Schema} from "@/state/provider/struct";
 const  context  = createContext({} as Record<string, any>)
 
 export function NextUniversalClientProvider<T extends Schema>({children, value}: PropsWithChildren<{value: T}>) {
-    const [v] = useState(value)
-    return <context.Provider value={v}>{children}
-        {children}
-    </context.Provider>
+    const [initValue] = useState(value)
+    return <context.Provider value={initValue}>{children}</context.Provider>
 }
 
 export function useUniversalValue<T extends Schema>(key: keyof T) {
