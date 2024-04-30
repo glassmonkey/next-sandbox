@@ -26,6 +26,6 @@ export default async function ServerComponent() {
     const text = await res.text()
     return <div>
         <div>Server Api Response: {text}</div>
-        <div>Server Universal Context: {v}</div>
+        <div>Server Universal Context: {value}</div>
     </div>
 }

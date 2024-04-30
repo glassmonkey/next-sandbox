@@ -39,7 +39,7 @@ function _ClientComponent() {
     }
     return <div>
         <div>Client Api Response: {data}</div>
-        <div>Client Universal Context: {v}</div>
+        <div>Client Universal Context: {value}</div>
     </div>
 }
 
