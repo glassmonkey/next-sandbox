@@ -1,0 +1,1 @@
+export interface Schema extends Record<string, any>{}
