@@ -1,5 +1,5 @@
 import {HOST} from "@/config";
-import {getUniversalValue} from "@/state/provider/NextUniversalProvider";
+import {getForceUniversalValue} from "@/state/provider/NextUniversalProvider";
 import {Message} from "@/app/struct";
 
 export default async function ServerComponent() {
@@ -19,7 +19,7 @@ export default async function ServerComponent() {
        })
        return e
    })
-    const {value: v} = getUniversalValue<Message>("message")
+    const value = getForceUniversalValue<Message>("message")
     if (res instanceof Error) {
         return <div>API Error: {res.message}</div>
     }

@@ -1,9 +1,8 @@
 "use client"
 import useSWR from "swr";
 import dynamic from "next/dynamic";
-import {Suspense} from "react";
 import {HOST} from "@/config";
-import {useUniversalValue} from "@/state/provider/NextUniverserlClientProvider";
+import {useForceUniversalValue} from "@/state/provider/NextUniverserlClientProvider";
 import {Message} from "@/app/struct";
 
 function _ClientComponent() {
@@ -27,7 +26,7 @@ function _ClientComponent() {
         suspense: true,
     })
 
-    const {value: v} = useUniversalValue<Message>("message")
+    const value = useForceUniversalValue<Message>("message")
 
     if (error) {
         return <div>Api Error: {error}</div>

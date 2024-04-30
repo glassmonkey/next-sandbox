@@ -1,7 +1,7 @@
 "use client"
 
 import {createContext, PropsWithChildren, useContext, useState} from "react";
-import {Schema} from "@/state/provider/struct";
+import {pickValue, Schema} from "@/state/provider/struct";
 
 const  context  = createContext({} as Record<string, any>)
 
@@ -12,14 +12,14 @@ export function NextUniversalClientProvider<T extends Schema>({children, value}:
 
 export function useUniversalValue<T extends Schema>(key: keyof T) {
     const store = useContext(context) as T;
-    if (!(key in store)) {
-        return {
-            value: undefined,
-            error: new Error(`key ${key.toString()} not found in universal store on client side`)
-        }
+    return pickValue(key, store, "client")
+}
+
+
+export function useForceUniversalValue<T extends Schema>(key: keyof T) {
+   const {value, error} = useUniversalValue<T>(key)
+    if (error) {
+        throw error
     }
-    return {
-        value: store[key],
-        error: undefined,
-    }
+    return value
 }

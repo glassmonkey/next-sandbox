@@ -1,7 +1,7 @@
 import {NextUniversalClientProvider} from "@/state/provider/NextUniverserlClientProvider";
 import {PropsWithChildren} from "react";
 import {createAsyncObjectStack} from "async-object-stack";
-import {Schema} from "@/state/provider/struct";
+import {pickValue, Schema} from "@/state/provider/struct";
 
 const stack = createAsyncObjectStack();
 
@@ -14,14 +14,13 @@ export function NextUniversalStoreProvider<T extends Schema>({children, value}: 
 
 export function getUniversalValue<T extends Schema>(key: keyof T) {
     const store= stack.render() as T;
-    if (!(key in store)) {
-        return {
-            value: undefined,
-            error: new Error(`key ${key.toString()} not found in universal store on server side`)
-        }
+    return pickValue(key, store, "server")
+}
+
+export function getForceUniversalValue<T extends Schema>(key: keyof T) {
+    const {value, error} = getUniversalValue<T>(key)
+    if (error) {
+        throw error
     }
-    return {
-        value: store[key],
-        error: undefined,
-    }
+    return value
 }
