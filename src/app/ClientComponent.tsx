@@ -3,6 +3,8 @@ import useSWR from "swr";
 import dynamic from "next/dynamic";
 import {Suspense} from "react";
 import {HOST} from "@/config";
+import {useUniversalValue} from "@/state/provider/NextUniverserlClientProvider";
+import {Message} from "@/app/struct";
 
 function _ClientComponent() {
     console.log("client component")
@@ -25,6 +27,8 @@ function _ClientComponent() {
         suspense: true,
     })
 
+    const v = useUniversalValue<Message>("message")
+
     if (error) {
         return <div>Api Error: {error}</div>
     }
@@ -36,6 +40,7 @@ function _ClientComponent() {
     }
     return <div>
         <div>Client Api Response: {data}</div>
+        <div>Client Universal Context: {v}</div>
     </div>
 }
 

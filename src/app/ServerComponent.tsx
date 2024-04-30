@@ -1,4 +1,6 @@
 import {HOST} from "@/config";
+import {getUniversalValue} from "@/state/provider/NextUniversalProvider";
+import {Message} from "@/app/struct";
 
 export default async function ServerComponent() {
    const res = await fetch(`${HOST}/api/data`, {
@@ -17,11 +19,13 @@ export default async function ServerComponent() {
        })
        return e
    })
+    const v = getUniversalValue<Message>("message")
     if (res instanceof Error) {
         return <div>API Error: {res.message}</div>
     }
     const text = await res.text()
     return <div>
         <div>Server Api Response: {text}</div>
+        <div>Server Universal Context: {v}</div>
     </div>
 }
