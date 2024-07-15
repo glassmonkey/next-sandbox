@@ -1,6 +1,7 @@
 'use server';
 
 import {HOST} from "@/config";
+import {FormSchema} from "@/app/schema";
 
 export type Value = {
     data: any
@@ -8,12 +9,18 @@ export type Value = {
 }
 
 export async function requestValue(v:  Value, formData: FormData): Promise<Value> {
-    const value = formData.get('value');
+    const {success, data, error}  = FormSchema.safeParse({
+        value: formData.get('value')
+    });
+    if(!success) {
+        throw error
+    }
+
     const res = await fetch(`${HOST}/api/action`, {
         method: "POST",
-        body: JSON.stringify({
-            value
-        }),
+        body: JSON.stringify(
+            data.value
+        ),
         cache: "no-cache"
     }).then((res) => {
         if(!res.ok) {
