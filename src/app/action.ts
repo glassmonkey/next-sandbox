@@ -8,18 +8,11 @@ export type Value = {
     error?: string
 }
 
-export async function requestValue(v:  Value, formData: FormData): Promise<Value> {
-    const {success, data, error}  = FormSchema.safeParse({
-        value: formData.get('value')
-    });
-    if(!success) {
-        throw error
-    }
-
+export async function requestValue(data:  Value): Promise<Value> {
     const res = await fetch(`${HOST}/api/action`, {
         method: "POST",
         body: JSON.stringify(
-            data.value
+            data.data
         ),
         cache: "no-cache"
     }).then((res) => {
@@ -42,10 +35,8 @@ export async function requestValue(v:  Value, formData: FormData): Promise<Value
         console.log(result)
         return result
     }
-    const result = {
+    return {
         data: await res.json(),
         error: undefined,
     }
-
-    return result
 }
