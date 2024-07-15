@@ -46,7 +46,6 @@ export async function requestValue(v:  Value, formData: FormData): Promise<Value
         data: await res.json(),
         error: undefined,
     }
-    console.log(result)
 
     return result
 }
